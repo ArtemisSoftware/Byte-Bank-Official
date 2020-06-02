@@ -1,23 +1,25 @@
+import 'package:bytebankofficial/models/contact.dart';
 import 'package:bytebankofficial/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
+
+  final List<Contact> contacts = List();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Contacts"),),
-      body : ListView(
-        children: [
-          Card(
-            child: ListTile(
+      body : ListView.builder(
 
-              title: Text('Name', style: TextStyle(fontSize: 24.0),),
+        itemBuilder: (context, index){
 
+          return _ContactItem(contacts[index]);
+        },
 
-              subtitle: Text('10000', style: TextStyle(fontSize: 16.0),),
-            ),
-          )
-        ],
+        itemCount: contacts.length,
+
       ),
 
         floatingActionButton: FloatingActionButton(
@@ -31,6 +33,27 @@ class ContactsList extends StatelessWidget {
           child: Icon(Icons.add),
 
     ),
+    );
+  }
+}
+
+
+class _ContactItem extends StatelessWidget {
+
+  final Contact contact;
+
+  _ContactItem(this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+
+        title: Text(contact.name, style: TextStyle(fontSize: 24.0),),
+
+
+        subtitle: Text(contact.accountNumber.toString(), style: TextStyle(fontSize: 16.0),),
+      ),
     );
   }
 }
