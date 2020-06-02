@@ -20,13 +20,46 @@ class ContactsList extends StatelessWidget {
 
             builder: (context, snapshot){
 
-            final List<Contact> contacts = snapshot.data;
+              switch(snapshot.connectionState){
 
-            return ListView.builder(
 
-              itemBuilder: (context, index){ return _ContactItem(contacts[index]);},
-              itemCount: contacts.length,
-            );
+                case ConnectionState.none:
+                  break;
+
+                case ConnectionState.waiting:
+                  return Center(
+
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        Text("Loading")
+                      ]
+                    ),
+                  );
+                  break;
+
+                case ConnectionState.active:
+                  break;
+
+                case ConnectionState.done:
+                  final List<Contact> contacts = snapshot.data;
+
+                  return ListView.builder(
+
+                    itemBuilder: (context, index){ return _ContactItem(contacts[index]);},
+                    itemCount: contacts.length,
+                  );
+                  break;
+              }
+
+
+              return Text("Unknown error");
+
+
+
+
         }),
 
       /*
