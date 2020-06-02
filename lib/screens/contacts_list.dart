@@ -13,22 +13,19 @@ class ContactsList extends StatelessWidget {
       appBar: AppBar(title: Text("Contacts"),),
 
 
-        body : FutureBuilder(
+        body : FutureBuilder<List<Contact>>(
 
-          future: findAll(),
-          builder: (context, snapshot){
+            initialData: List(),
+            future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+
+            builder: (context, snapshot){
 
             final List<Contact> contacts = snapshot.data;
 
             return ListView.builder(
 
-              itemBuilder: (context, index){
-
-                return _ContactItem(contacts[index]);
-              },
-
+              itemBuilder: (context, index){ return _ContactItem(contacts[index]);},
               itemCount: contacts.length,
-
             );
         }),
 
