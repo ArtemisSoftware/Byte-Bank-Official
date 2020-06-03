@@ -3,7 +3,20 @@ import 'package:bytebankofficial/models/contact.dart';
 import 'package:bytebankofficial/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+
+class ContactsList extends StatefulWidget{
+
+
+
+  @override
+  State<StatefulWidget> createState() {
+    return ContactsListState();
+  }
+}
+
+
+
+class ContactsListState extends State<ContactsList> {
 
 
 
@@ -66,16 +79,20 @@ class ContactsList extends StatelessWidget {
 
 */
         floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) {
-                return ContactForm();
-              })
-          ).then((newContact) {});
-        },
+
+          onPressed: (){
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) { return ContactForm(); })
+            ).then((value) {
+              setState(() {
+                widget.createState();
+              });
+            });
+          },
+
           child: Icon(Icons.add),
 
-    ),
+      ),
     );
   }
 }
