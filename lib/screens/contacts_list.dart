@@ -23,7 +23,7 @@ class ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Contacts"),),
+      appBar: AppBar(title: Text("Transfer"),),
 
 
         body : FutureBuilder<List<Contact>>(
