@@ -1,3 +1,4 @@
+import 'package:bytebankofficial/http/webclient.dart';
 import 'package:bytebankofficial/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,8 @@ void main() {
     });
   });
   */
+
+  findAll().then((transactions) => print("new transactions $transactions"));
 }
 
 class ByteBankApp extends StatelessWidget {
