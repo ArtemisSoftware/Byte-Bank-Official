@@ -1,3 +1,4 @@
+
 import 'package:bytebankofficial/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,9 @@ void main() {
     });
   });
   */
+
+  //save(Transaction(900, Contact(0, "Dick Grayson" ,4000))).then((transaction) => print("transaction $transaction"));
+  //findAll().then((transactions) => print("new transactions $transactions"));
 }
 
 class ByteBankApp extends StatelessWidget {
