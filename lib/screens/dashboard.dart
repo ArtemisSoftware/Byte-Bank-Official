@@ -13,25 +13,34 @@ class Dashboard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FittedBox(
-                    child: Image.asset('images/bytebank_logo.png'),
-                    fit: BoxFit.fill,
-                  )
+
+
+                  child: Image.asset('images/bytebank_logo.png')
+
+                  //child: FittedBox(
+                    //child: Image.asset('images/bytebank_logo.png', width: 100, height: 100),
+                    //fit: BoxFit.fill,
+                  //)
+
               ),
             ],
           ),
+
+
           Container(
             height: 120,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _FeatureItem("Transfer", Icons.monetization_on, onClick: (){_showContactsList(context);},),
-                _FeatureItem("Transaction Feed", Icons.description, onClick: (){_showTransactionList(context);},),
+                FeatureItem("Transfer", Icons.monetization_on, onClick: (){_showContactsList(context);},),
+                FeatureItem("Transaction Feed", Icons.description, onClick: (){_showTransactionList(context);},),
               ],
             ),
           ),
@@ -61,14 +70,14 @@ class Dashboard extends StatelessWidget {
 }
 
 
-class _FeatureItem extends StatelessWidget {
+class FeatureItem extends StatelessWidget {
 
   final String name;
   final IconData icon;
   final Function onClick;
 
 
-  _FeatureItem(this.name, this.icon, {@required this.onClick});
+  FeatureItem(this.name, this.icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
