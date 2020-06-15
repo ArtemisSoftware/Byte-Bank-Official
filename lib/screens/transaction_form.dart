@@ -24,6 +24,8 @@ class _TransactionFormState extends State<TransactionForm> {
   final TransactionWebClient _webClient = TransactionWebClient();
   final String transactionId = Uuid().v4();
 
+  bool _sending = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: Progress(message: "Sending..."),
                 ),
-                visible: false,
+                visible: _sending,
               ),
 
               Text(
@@ -110,6 +112,11 @@ class _TransactionFormState extends State<TransactionForm> {
     //await Future.delayed(Duration(seconds: 1));
 
 
+    setState(() {
+      _sending = true;
+    });
+
+
     Transaction transaction = await _send(transactionCreated, password, context);
 
 
@@ -151,6 +158,12 @@ class _TransactionFormState extends State<TransactionForm> {
         .catchError((e){
 
           _showFailureMessage(context);
+    }).whenComplete(() {
+
+      setState(() {
+        _sending = false;
+      });
+
     });
     return transaction;
   }
