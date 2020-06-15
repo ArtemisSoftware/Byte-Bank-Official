@@ -24,6 +24,15 @@ class TransactionWebClient{
 
     final Response response = await client.post(baseUrl, headers: {'Content-type' : 'application/json', 'password' : password}, body : transactionJson);
 
+
+    if(response.statusCode == 400){
+      throw Exception("There was an error submitting transaction");
+    }
+
+    if(response.statusCode == 401){
+      throw Exception("Authentication failed");
+    }
+
     return Transaction.fromJson(jsonDecode(response.body));
   }
 
