@@ -8,43 +8,55 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Dashboard"),),
 
-      body: Column(
+      body: LayoutBuilder(
 
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        builder:(context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
 
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight
+            ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
+            child: Column(
 
-
-                  child: Image.asset('images/bytebank_logo.png')
-
-                  //child: FittedBox(
-                    //child: Image.asset('images/bytebank_logo.png', width: 100, height: 100),
-                    //fit: BoxFit.fill,
-                  //)
-
-              ),
-            ],
-          ),
-
-
-          Container(
-            height: 120,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FeatureItem("Transfer", Icons.monetization_on, onClick: (){_showContactsList(context);},),
-                FeatureItem("Transaction Feed", Icons.description, onClick: (){_showTransactionList(context);},),
+
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+
+
+                        child: Image.asset('images/bytebank_logo.png')
+
+                        //child: FittedBox(
+                          //child: Image.asset('images/bytebank_logo.png', width: 100, height: 100),
+                          //fit: BoxFit.fill,
+                        //)
+
+                    ),
+                  ],
+                ),
+
+
+                Container(
+                  height: 120,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      FeatureItem("Transfer", Icons.monetization_on, onClick: (){_showContactsList(context);},),
+                      FeatureItem("Transaction Feed", Icons.description, onClick: (){_showTransactionList(context);},),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
