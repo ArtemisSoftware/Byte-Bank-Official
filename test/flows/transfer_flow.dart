@@ -1,4 +1,5 @@
 
+import 'package:bytebankofficial/components/transaction_auth_dialog.dart';
 import 'package:bytebankofficial/main.dart';
 import 'package:bytebankofficial/models/contact.dart';
 import 'package:bytebankofficial/screens/contacts_list.dart';
@@ -18,8 +19,9 @@ void main(){
 
 
     final mockContactDao = MockContactDao();
+    final mockTransactionWebClient = MockTransactionWebClient();
 
-    await tester.pumpWidget(ByteBankApp(contactDao: mockContactDao));
+    await tester.pumpWidget(ByteBankApp(contactDao: mockContactDao, transactionWebClient: mockTransactionWebClient));
 
 
     final dashboard = find.byType(Dashboard);
@@ -58,6 +60,31 @@ void main(){
 
     final transactionForm = find.byType(TransactionForm);
     expect(transactionForm, findsOneWidget);
+
+
+    final contactName = find.text("Alex");
+    expect(contactName, findsOneWidget);
+
+
+    final accountNumberName = find.text("1000");
+    expect(accountNumberName, findsOneWidget);
+
+
+    final textFieldValue = find.byWidgetPredicate((widget) {
+      return textFieldByLabelTextMatcher(widget, "Value");
+    });
+    expect(textFieldValue, findsOneWidget);
+
+    await tester.enterText(textFieldValue, "200");
+
+    final transferButton = find.widgetWithText(RaisedButton, "Transfer");
+    expect(transferButton, findsOneWidget);
+
+    await tester.tap(transferButton);
+    await tester.pumpAndSettle();
+
+    final transactionAuthDialog = find.byType(TransactionAuthDialog);
+    expect(transactionAuthDialog, findsOneWidget);
 
   });
 }

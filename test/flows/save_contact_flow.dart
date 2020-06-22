@@ -51,7 +51,7 @@ void main(){
 
       final nameTextField = find.byWidgetPredicate((widget)  {
 
-          return _textFieldMatcher(widget, "Full name");
+          return textFieldByLabelTextMatcher(widget, "Full name");
       });
 
       expect(nameTextField, findsOneWidget);
@@ -61,7 +61,7 @@ void main(){
 
       final accountNumberTextField = find.byWidgetPredicate((widget)  {
 
-          return _textFieldMatcher(widget, "Account number");
+          return textFieldByLabelTextMatcher(widget, "Account number");
       });
 
       expect(accountNumberTextField, findsOneWidget);
@@ -83,10 +83,3 @@ void main(){
   });
 }
 
-bool _textFieldMatcher(Widget widget, String labelText) {
-  if(widget is TextField){
-      return widget.decoration.labelText == labelText;
-  }
-
-  return false;
-}
