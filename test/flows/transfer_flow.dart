@@ -1,7 +1,9 @@
 
+import 'package:bytebankofficial/components/response_dialog.dart';
 import 'package:bytebankofficial/components/transaction_auth_dialog.dart';
 import 'package:bytebankofficial/main.dart';
 import 'package:bytebankofficial/models/contact.dart';
+import 'package:bytebankofficial/models/transaction.dart';
 import 'package:bytebankofficial/screens/contacts_list.dart';
 import 'package:bytebankofficial/screens/dashboard.dart';
 import 'package:bytebankofficial/screens/transaction_form.dart';
@@ -28,10 +30,12 @@ void main(){
     expect(dashboard, findsOneWidget);
 
 
+    final contact = Contact(0,"Alex", 1000);
+
     when(mockContactDao.findAll()).thenAnswer((realInvocation) async {
 
       debugPrint("invocating: ${realInvocation.memberName}");
-      return [Contact(0,"Alex", 1000)];
+      return [contact];
     });
     
     await clickOnTheTransferFeatureItem(tester);
@@ -85,6 +89,37 @@ void main(){
 
     final transactionAuthDialog = find.byType(TransactionAuthDialog);
     expect(transactionAuthDialog, findsOneWidget);
+
+
+    final textFieldPassword = find.byKey(transactionAuthDialogTextFieldPasswordKey);
+    expect(textFieldPassword, findsOneWidget);
+    await tester.enterText(textFieldPassword, "1000");
+
+
+    final cancelButton = find.widgetWithText(FlatButton, "Cancel");
+    expect(cancelButton, findsOneWidget);
+
+    final confirmButton = find.widgetWithText(FlatButton, "Confirm");
+    expect(confirmButton, findsOneWidget);
+
+
+    when(mockTransactionWebClient.save(Transaction(null, 200, contact), "1000"))
+        .thenAnswer((realInvocation) async => Transaction(null, 200, contact));
+
+    await tester.tap(confirmButton);
+    await tester.pumpAndSettle();
+
+    final successDialog = find.byType(SuccessDialog);
+    expect(successDialog, findsOneWidget);
+
+    final okButton = find.widgetWithText(FlatButton, "Ok");
+    expect(okButton, findsOneWidget);
+
+    await tester.tap(okButton);
+    await tester.pumpAndSettle();
+
+    final contactsListBack = find.byType(ContactsList);
+    expect(contactsListBack, findsOneWidget);
 
   });
 }
