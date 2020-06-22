@@ -3,12 +3,12 @@ import 'package:bytebankofficial/database/dao/contact_dao.dart';
 import 'package:bytebankofficial/models/contact.dart';
 import 'package:bytebankofficial/screens/contact_form.dart';
 import 'package:bytebankofficial/screens/transaction_form.dart';
+import 'package:bytebankofficial/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 
 
+
 class ContactsList extends StatefulWidget{
-
-
 
   @override
   State<StatefulWidget> createState() {
@@ -20,10 +20,12 @@ class ContactsList extends StatefulWidget{
 
 class ContactsListState extends State<ContactsList> {
 
-  final ContactDao _dao = ContactDao();
 
   @override
   Widget build(BuildContext context) {
+
+    final dependencies = AppDependencies.of(context);
+
     return Scaffold(
       appBar: AppBar(title: Text("Transfer"),),
 
@@ -31,7 +33,7 @@ class ContactsListState extends State<ContactsList> {
         body : FutureBuilder<List<Contact>>(
 
             initialData: List(),
-            future: Future.delayed(Duration(seconds: 1)).then((value) => _dao.findAll()),
+            future: /*Future.delayed(Duration(seconds: 1)).then((value) => */dependencies.contactDao.findAll()/*)*/,
 
             builder: (context, snapshot){
 
@@ -55,7 +57,7 @@ class ContactsListState extends State<ContactsList> {
 
                     itemBuilder: (context, index){
 
-                      return _ContactItem(contacts[index], onClick: (){
+                      return ContactItem(contacts[index], onClick: (){
                       
                         Navigator.of(context).push(
                             MaterialPageRoute(
@@ -102,12 +104,12 @@ class ContactsListState extends State<ContactsList> {
 }
 
 
-class _ContactItem extends StatelessWidget {
+class ContactItem extends StatelessWidget {
 
   final Contact contact;
   final Function onClick;
 
-  _ContactItem(this.contact, {@required this.onClick});
+  ContactItem(this.contact, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
