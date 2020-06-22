@@ -131,7 +131,7 @@ class ContactsListState extends State<ContactsList> {
 
                     itemBuilder: (context, index){
 
-                      return _ContactItem(contacts[index], onClick: (){
+                      return ContactItem(contacts[index], onClick: (){
                       
                         Navigator.of(context).push(
                             MaterialPageRoute(
@@ -178,12 +178,12 @@ class ContactsListState extends State<ContactsList> {
 }
 
 
-class _ContactItem extends StatelessWidget {
+class ContactItem extends StatelessWidget {
 
   final Contact contact;
   final Function onClick;
 
-  _ContactItem(this.contact, {@required this.onClick});
+  ContactItem(this.contact, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
