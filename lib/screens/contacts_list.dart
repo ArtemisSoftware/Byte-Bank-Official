@@ -162,7 +162,7 @@ class ContactsListState extends State<ContactsList> {
 
           onPressed: (){
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) { return ContactForm(); })
+                MaterialPageRoute(builder: (context) { return ContactForm(contactDao: contactDao,); })
             ).then((value) {
               setState(() {
                 widget.createState();
