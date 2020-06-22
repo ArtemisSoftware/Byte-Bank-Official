@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'matchers.dart';
+import 'mocks.dart';
 
 void main(){
 
   testWidgets("Should save a contact", (tester) async{
 
 
-      await tester.pumpWidget(ByteBankApp());
+      final mockContactDao = MockContactDao();
+
+
+      await tester.pumpWidget(ByteBankApp(contactDao: mockContactDao));
 
 
       final dashboard = find.byType(Dashboard);
@@ -23,14 +27,7 @@ void main(){
       expect(transferFeatureItem, findsOneWidget);
       await tester.tap(transferFeatureItem);
 
-      await tester.pump();
-      await tester.pump();
-
-      await tester.pump();
-      await tester.pump();
-      await tester.pump();
-      await tester.pump();
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       final contactsList = find.byType(ContactsList);
       expect(contactsList, findsOneWidget);
@@ -39,7 +36,7 @@ void main(){
       expect(fabNewContact, findsOneWidget);
       await tester.tap(fabNewContact);
 
-      await tester.pump();
+      await tester.pumpAndSettle();
 
 
       final contactForm = find.byType(ContactForm);

@@ -41,6 +41,11 @@ class ContactDao {
 
     List<Contact> contacts = _toList(result);
 
+    if(contacts == null){
+      contacts = List<Contact>();
+  }
+
+
     return contacts;
 
   }

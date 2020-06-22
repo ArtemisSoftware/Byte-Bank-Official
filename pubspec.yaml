@@ -29,6 +29,7 @@ dependencies:
   http:
   http_interceptor:
   uuid:
+  mockito:
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,8 +1,16 @@
+import 'package:bytebankofficial/database/dao/contact_dao.dart';
 import 'package:bytebankofficial/screens/contacts_list.dart';
 import 'package:bytebankofficial/screens/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
+
+
+  final ContactDao contactDao;
+
+  Dashboard({@required this.contactDao});
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +74,7 @@ class Dashboard extends StatelessWidget {
 
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) {
-          return ContactsList();
+          return ContactsList(contactDao: contactDao);
         })
     );
   }
